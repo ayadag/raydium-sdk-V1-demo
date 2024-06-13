@@ -7,6 +7,7 @@
     "@types/node-cron": "^3.0.11",
     "axios": "^1.6.7",
     "bs58": "^5.0.0",
+    "buffer-layout": "^1.2.2",
     "decimal.js": "^10.4.3",
     "node-cron": "^3.0.3",
     "ts-node": "^10.9.2",

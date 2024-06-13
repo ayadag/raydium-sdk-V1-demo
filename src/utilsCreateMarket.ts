@@ -26,18 +26,23 @@ export async function createMarket(input: TestTxInputInfo) {
     wallet: input.wallet.publicKey,
     baseInfo: input.baseToken,
     quoteInfo: input.quoteToken,
-    lotSize: 1, // default 1
-    tickSize: 0.01, // default 0.01
+    lotSize: 0.1, // default 1
+    tickSize: 0.00001, // default 0.01
     dexProgramId: PROGRAMIDS.OPENBOOK_MARKET,
     makeTxVersion,
   })
 
-  return { txids: await buildAndSendTx(createMarketInstruments.innerTransactions) }
+  const marketId = createMarketInstruments.address.marketId
+  console.log('marketId', marketId)
+
+  // return { txids: await buildAndSendTx(createMarketInstruments.innerTransactions) }
+
+  return { txids: await buildAndSendTx(createMarketInstruments.innerTransactions, { skipPreflight: true }) }
 }
 
 async function howToUse() {
-  const baseToken = DEFAULT_TOKEN.RAY // RAY
-  const quoteToken = DEFAULT_TOKEN.USDC // USDC
+  const baseToken = DEFAULT_TOKEN.SALD // RAY
+  const quoteToken = DEFAULT_TOKEN.WSOL // USDC
 
   createMarket({
     baseToken,
@@ -47,4 +52,6 @@ async function howToUse() {
     /** continue with txids */
     console.log('txids', txids)
   })
-}
+};
+
+howToUse();
