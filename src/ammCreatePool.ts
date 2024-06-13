@@ -126,9 +126,10 @@ async function howToUse() {
   // const targetMarketId= getPubkeyFromStr("F6Abrndt3sWNreVesrb6nzqNiPfCpeY6qesTzPPbyqyd")
   // const targetMarketId= getPubkeyFromStr("BzcDHvKWD4LyW4X1NUEaWLBaNmyiCUKqcd3jXDRhwwAG")
   // const targetMarketId= getPubkeyFromStr("21TJSyureafPDtKd82dqwfns8XNJ9dfhhAWQYKtrnSf4")
-  const targetMarketId= getPubkeyFromStr("7k9CxPBSmdLr1HHvsp55RKJN3uy8ayTJALciqq54qY2A")
+  // const targetMarketId= getPubkeyFromStr("7k9CxPBSmdLr1HHvsp55RKJN3uy8ayTJALciqq54qY2A")
   // const targetMarketId= getPubkeyFromStr("4cDFyfxhn1hD5WxdiJGDCMkpFCXm7g63LEAzsgt6bzWX")
   // const targetMarketId= getPubkeyFromStr("9iLzCPDnbSTaYrBqA7MWqCHSKMJByofGzvMph7Y8yeim")
+  const targetMarketId= getPubkeyFromStr("4cDFyfxhn1hD5WxdiJGDCMkpFCXm7g63LEAzsgt6bzWX")
   
   
   if (targetMarketId  == null) {
@@ -151,9 +152,9 @@ async function howToUse() {
   const addBaseAmount = new BN(toBufferBE(BigInt(calcNonDecimalValue(bAmo, bDes).toString()), 8))
   const addQuoteAmount = new BN(toBufferBE(BigInt(calcNonDecimalValue(qAmo, qDes).toString()), 8))
 
-  const startTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7 // start from 7 days later
+  // const startTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7 // start from 7 days later
   // const startTime = Math.floor(Date.now() / 1000) - 4;
-  // const startTime = Math.floor(Date.now() / 1000);
+  const startTime = Math.floor(Date.now() / 1000);
 
   if(!wallet){
     return {Err: "The wallet notfound"}
