@@ -26,12 +26,19 @@ import {
   getWalletTokenAccount,
 } from './util';
 
+// const ZERO = new BN(0)
+// type BN = typeof ZERO
+
+// type CalcStartPrice = {
+//   addBaseAmount: BN
+//   addQuoteAmount: BN
+// }
 const ZERO = new BN(0)
-type BN = typeof ZERO
+type bn = typeof ZERO
 
 type CalcStartPrice = {
-  addBaseAmount: BN
-  addQuoteAmount: BN
+  addBaseAmount: bn
+  addQuoteAmount: bn
 }
 
 type LiquidityPairTargetInfo = {
@@ -129,7 +136,8 @@ async function howToUse() {
   // const targetMarketId= getPubkeyFromStr("7k9CxPBSmdLr1HHvsp55RKJN3uy8ayTJALciqq54qY2A")
   // const targetMarketId= getPubkeyFromStr("4cDFyfxhn1hD5WxdiJGDCMkpFCXm7g63LEAzsgt6bzWX")
   // const targetMarketId= getPubkeyFromStr("9iLzCPDnbSTaYrBqA7MWqCHSKMJByofGzvMph7Y8yeim")
-  const targetMarketId= getPubkeyFromStr("4cDFyfxhn1hD5WxdiJGDCMkpFCXm7g63LEAzsgt6bzWX")
+  // const targetMarketId= getPubkeyFromStr("4cDFyfxhn1hD5WxdiJGDCMkpFCXm7g63LEAzsgt6bzWX")
+  const targetMarketId= getPubkeyFromStr("8Ve9F18DWfdtMkt8FG36d1ALKzerMw5bUprm2hPkXcJ2")
   
   
   if (targetMarketId  == null) {
