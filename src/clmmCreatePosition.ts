@@ -1,16 +1,16 @@
+import BN from 'bn.js';
 import Decimal from 'decimal.js';
 
 import {
   Clmm,
-  fetchMultipleMintInfos
+  fetchMultipleMintInfos,
 } from '@raydium-io/raydium-sdk';
 import { Keypair } from '@solana/web3.js';
 
-import BN from 'bn.js';
 import {
   connection,
   makeTxVersion,
-  wallet
+  wallet,
 } from '../config';
 import { formatClmmKeysById } from './formatClmmKeysById';
 import { _d } from './getOutOfRangePositionOutAmount';
@@ -84,6 +84,7 @@ async function clmmCreatePosition({ targetPool, inputTokenAmount, inputTokenMint
       feePayer: wallet.publicKey,
       wallet: wallet.publicKey,
       tokenAccounts: walletTokenAccounts,
+      useSOLBalance: true,   //ayad
     },
     tickLower,
     tickUpper,
@@ -98,12 +99,15 @@ async function clmmCreatePosition({ targetPool, inputTokenAmount, inputTokenMint
 }
 
 async function howToUse() {
-  const targetPool = 'pool id' // RAY-USDC pool
+  const targetPool = 'Cx7SmTCLvoZJEgwJYUStTFfU9X5pcWuxo25WydAxHo76' // RAY-USDC pool
   const inputTokenAmount = new Decimal(1)
+  // console.log('inputTokenAmount: ',inputTokenAmount)
   const inputTokenMint: 'mintA' | 'mintB' = 'mintA'
   const walletTokenAccounts = await getWalletTokenAccount(connection, wallet.publicKey)
-  const startPrice = new Decimal(0.1)
-  const endPrice = new Decimal(1)
+  const startPrice = new Decimal(0.000000001)
+  // console.log('startPrice: ',startPrice)
+  const endPrice = new Decimal(999999999)
+  // console.log('endPrice: ',endPrice)
   const slippage = 0.01
 
   clmmCreatePosition({
@@ -121,4 +125,4 @@ async function howToUse() {
   })
 }
 
-howToUse()
+howToUse();

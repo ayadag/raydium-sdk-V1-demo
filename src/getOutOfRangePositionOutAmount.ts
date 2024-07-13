@@ -17,15 +17,15 @@ export function _d(poolInfo: ClmmPoolInfo, amount: BN, type: 'A' | 'B') {
 }
 
 async function getOutOfRangePositionOutAmount() {
-  const poolId = ''                                           // need change
+  const poolId = 'Cx7SmTCLvoZJEgwJYUStTFfU9X5pcWuxo25WydAxHo76' //SALD - WSOL                                       // need change
 
   const poolKey = await formatClmmKeysById(poolId)
 
   const poolInfo = (await Clmm.fetchMultiplePoolInfos({ connection, poolKeys: [poolKey], chainTime: new Date().getTime() / 1000, }))[poolId].state
 
-  const priceLower = new Decimal(10)                           // need change
-  const priceUpper = new Decimal(30)                           // need change
-  const inputAmount = new Decimal(100)                         // need change
+  const priceLower = new Decimal(0.000000001)                           // need change
+  const priceUpper = new Decimal(999999999)                           // need change
+  const inputAmount = new Decimal(1)                         // need change
   const inputAmountMint = poolInfo.mintA                       // need change
 
   const tickLower = Clmm.getPriceAndTick({ poolInfo, price: priceLower, baseIn: true }).tick

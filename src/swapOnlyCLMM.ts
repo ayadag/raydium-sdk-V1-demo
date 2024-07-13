@@ -16,7 +16,7 @@ import {
   connection,
   DEFAULT_TOKEN,
   makeTxVersion,
-  wallet
+  wallet,
 } from '../config';
 import { formatClmmKeysById } from './formatClmmKeysById';
 import {
@@ -75,6 +75,7 @@ async function swapOnlyCLMM(input: TestTxInputInfo) {
       feePayer: input.wallet.publicKey,
       wallet: input.wallet.publicKey,
       tokenAccounts: input.walletTokenAccounts,
+      // useSOLBalance: true, //ayad
     },
     inputMint: input.inputTokenAmount.token.mint,
     amountIn: input.inputTokenAmount.raw,
@@ -87,11 +88,14 @@ async function swapOnlyCLMM(input: TestTxInputInfo) {
 }
 
 async function howToUse() {
-  const inputToken = DEFAULT_TOKEN.USDC // USDC
-  const outputToken = DEFAULT_TOKEN.RAY // RAY
-  const targetPool = 'pool id' // USDC-RAY pool
-  const inputTokenAmount = new TokenAmount(inputToken, 100)
-  const slippage = new Percent(1, 100)
+  const inputToken = DEFAULT_TOKEN.SALD // USDC
+  const outputToken = DEFAULT_TOKEN.WSOL // RAY
+  // const inputToken = DEFAULT_TOKEN.WSOL // USDC
+  // const outputToken = DEFAULT_TOKEN.SALD // RAY  
+  const targetPool = 'Cx7SmTCLvoZJEgwJYUStTFfU9X5pcWuxo25WydAxHo76' // RAY-USDC pool
+  // const inputTokenAmount = new TokenAmount(inputToken, 900000000) //lambor
+  const inputTokenAmount = new TokenAmount(inputToken, 1000) //lambor
+  const slippage = new Percent(100, 100)
   const walletTokenAccounts = await getWalletTokenAccount(connection, wallet.publicKey)
 
   swapOnlyCLMM({
@@ -106,3 +110,5 @@ async function howToUse() {
     console.log('txids', txids)
   })
 }
+
+howToUse();

@@ -4,7 +4,7 @@ import Decimal from 'decimal.js';
 import {
   Clmm,
   ClmmConfigInfo,
-  Token
+  Token,
 } from '@raydium-io/raydium-sdk';
 import {
   Keypair,
@@ -15,10 +15,8 @@ import {
   connection,
   DEFAULT_TOKEN,
   makeTxVersion,
-  PROGRAMIDS,
-  wallet
+  wallet,
 } from '../config';
-import { formatClmmConfigs } from './formatClmmConfigs';
 import { buildAndSendTx } from './util';
 
 type TestTxInputInfo = {
@@ -30,15 +28,28 @@ type TestTxInputInfo = {
   startTime: BN
 }
 
+const clmmProgram = new PublicKey('4sGSRSbf9QwFvy7LhDidtgw6kEyZzNvf4VDYEKhicenj'); //PROGRAMIDS.CLMM
+
 async function clmmCreatePool(input: TestTxInputInfo) {
   // -------- pre-action: fetch basic ammConfig info --------
-  const _ammConfig = (await formatClmmConfigs(PROGRAMIDS.CLMM.toString()))[input.clmmConfigId]
-  const ammConfig: ClmmConfigInfo = { ..._ammConfig, id: new PublicKey(_ammConfig.id) }
+  // const _ammConfig = (await formatClmmConfigs(clmmProgram.toString()))[input.clmmConfigId]
+  // const ammConfig: ClmmConfigInfo = { ..._ammConfig, id: new PublicKey(_ammConfig.id) }
 
+  //////ayada////////
+  let ammConfig: ClmmConfigInfo = {
+    description: 'first config',
+    fundFeeRate: 40000,
+    fundOwner: '7CDdvccgvG6tSn93gLtoHNbCafFNgRw6m27nFxmuk4NR',
+    id: new PublicKey(input.clmmConfigId),
+    index: 1,
+    protocolFeeRate: 120000,
+    tickSpacing: 60,
+    tradeFeeRate: 2500
+  };
   // -------- step 1: make create pool instructions --------
   const makeCreatePoolInstruction = await Clmm.makeCreatePoolInstructionSimple({
     connection,
-    programId: PROGRAMIDS.CLMM,
+    programId: clmmProgram, //PROGRAMIDS.CLMM
     owner: input.wallet.publicKey,
     mint1: input.baseToken,
     mint2: input.quoteToken,
@@ -51,7 +62,7 @@ async function clmmCreatePool(input: TestTxInputInfo) {
 
   // -------- step 2: (optional) get mockPool info --------
   const mockPoolInfo = Clmm.makeMockPoolInfo({
-    programId: PROGRAMIDS.CLMM,
+    programId: clmmProgram, //PROGRAMIDS.CLMM
     mint1: input.baseToken,
     mint2: input.quoteToken,
     ammConfig,
@@ -65,9 +76,9 @@ async function clmmCreatePool(input: TestTxInputInfo) {
 }
 
 async function howToUse() {
-  const baseToken = DEFAULT_TOKEN.USDC // USDC
-  const quoteToken = DEFAULT_TOKEN.RAY // RAY
-  const clmmConfigId = 'pool id'
+  const baseToken = DEFAULT_TOKEN.SALD // USDC
+  const quoteToken = DEFAULT_TOKEN.WSOL // RAY
+  const clmmConfigId = 'CHHJQXc6wN8NA1GZvmDL58nWSuR4UndMx6UA4zYRv4Xm' //config account index =1
   const startPoolPrice = new Decimal(1)
   const startTime = new BN(Math.floor(new Date().getTime() / 1000))
 
@@ -83,3 +94,5 @@ async function howToUse() {
     console.log('txids', txids)
   })
 }
+
+howToUse();

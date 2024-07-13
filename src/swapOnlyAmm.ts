@@ -14,7 +14,7 @@ import {
   connection,
   DEFAULT_TOKEN,
   makeTxVersion,
-  wallet
+  wallet,
 } from '../config';
 import { formatAmmKeysById } from './formatAmmKeysById';
 import {
@@ -36,7 +36,12 @@ async function swapOnlyAmm(input: TestTxInputInfo) {
   // -------- pre-action: get pool info --------
   const targetPoolInfo = await formatAmmKeysById(input.targetPool)
   assert(targetPoolInfo, 'cannot find the target pool')
+  console.log("targetPoolInfo: ", targetPoolInfo)
+
+  console.log("targetPoolInfo.marketId: ", targetPoolInfo.marketId)  //targetPoolInfo.marketId
+
   const poolKeys = jsonInfo2PoolKeys(targetPoolInfo) as LiquidityPoolKeys
+  console.log("poolKeys: ", poolKeys)
 
   // -------- step 1: coumpute amount out --------
   const { amountOut, minAmountOut } = Liquidity.computeAmountOut({
@@ -67,10 +72,14 @@ async function swapOnlyAmm(input: TestTxInputInfo) {
 }
 
 async function howToUse() {
-  const inputToken = DEFAULT_TOKEN.USDC // USDC
-  const outputToken = DEFAULT_TOKEN.RAY // RAY
-  const targetPool = 'pool id' // USDC-RAY pool
-  const inputTokenAmount = new TokenAmount(inputToken, 10000)
+  // const inputToken = DEFAULT_TOKEN.USDC // USDC
+  // const outputToken = DEFAULT_TOKEN.RAY // RAY
+  // const targetPool = 'pool id' // USDC-RAY pool
+  const inputToken = DEFAULT_TOKEN.SALD // USDC
+  const outputToken = DEFAULT_TOKEN.WSOL // RAY
+  const targetPool = '4pRDbmvCTAc8gmf3EUbvWT3DRtEF5ceLBB5fraBMqa1W' // SALD-WSOL pool
+  
+  const inputTokenAmount = new TokenAmount(inputToken, 1000000000) //amountIn: '1.000000000'
   const slippage = new Percent(1, 100)
   const walletTokenAccounts = await getWalletTokenAccount(connection, wallet.publicKey)
 
@@ -86,3 +95,5 @@ async function howToUse() {
     console.log('txids', txids)
   })
 }
+
+howToUse();

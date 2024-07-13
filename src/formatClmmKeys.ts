@@ -1,12 +1,12 @@
 import {
   ApiClmmPoolsItem,
   ApiClmmPoolsItemStatistics,
+  getMultipleAccountsInfoWithCustomFlags,
   PoolInfoLayout,
-  getMultipleAccountsInfoWithCustomFlags
 } from '@raydium-io/raydium-sdk';
 import {
   AddressLookupTableAccount,
-  PublicKey
+  PublicKey,
 } from '@solana/web3.js';
 
 import { connection } from '../config';
